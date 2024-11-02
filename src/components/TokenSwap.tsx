@@ -63,14 +63,14 @@ const TokenSwap: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4   rounded-lg shadow-lg">
-      <h2 className="text-center text-3xl font-bold mb-4">Token Swap</h2>
+    <div className="max-w-md mx-auto p-4  bg-[#198785]  rounded-lg shadow-lg">
+      <h2 className="text-center text-4xl font-serif text-white mb-4">Token Swap</h2>
       <div className="flex flex-col gap-y-5 justify-between items-center mb-4">
-        <span className='text-xl bg-slate-500 relative   rounded-md py-3 px-[150px]'>{isTokenBToTokenA ? 'TokenB' : 'TokenA'}</span>
+        <span className='text-xl bg-slate-500 relative font-semibold   rounded-md py-3 px-[150px]'>{isTokenBToTokenA ? 'TokenB' : 'TokenA'}</span>
         <button onClick={() => setIsTokenBToTokenA(!isTokenBToTokenA)} className="px-2 py-1 bg-green-500 mt-[48px] z-10 absolute rounded-2xl">
           ⇅
         </button>
-        <span className='text-xl bg-slate-500 relative rounded-md py-3 px-[150px]'>{isTokenBToTokenA ? 'TokenA' : 'TokenB'}</span>
+        <span className='text-xl bg-slate-500 relative font-semibold rounded-md py-3 px-[150px]'>{isTokenBToTokenA ? 'TokenA' : 'TokenB'}</span>
       </div>
       <input
         type="number"
