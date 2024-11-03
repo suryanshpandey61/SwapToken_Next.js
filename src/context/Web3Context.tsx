@@ -37,22 +37,9 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
           
           const signer = await web3Provider.getSigner();
 
-          const tokenB = new ethers.Contract(
-            CONTRACT_ADDRESSES.TokenB,
-            TokenB_ABI,
-            signer
-          );
-          const tokenA = new ethers.Contract(
-            CONTRACT_ADDRESSES.TokenA,
-            TokenA_ABI,
-            signer
-          );
-
-          const swap = new ethers.Contract(
-            CONTRACT_ADDRESSES.SWAP,
-            SWAP_ABI,
-            signer
-          );
+          const tokenB = new ethers.Contract( CONTRACT_ADDRESSES.TokenB,TokenB_ABI,signer);
+          const tokenA = new ethers.Contract( CONTRACT_ADDRESSES.TokenA,TokenA_ABI,signer);
+          const swap = new ethers.Contract(CONTRACT_ADDRESSES.SWAP, SWAP_ABI,signer);
 
           setTokenBContract(tokenB);
           setTokenAContract(tokenA);

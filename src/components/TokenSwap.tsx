@@ -29,29 +29,25 @@ const TokenSwap: React.FC = () => {
     }
   };
 
+ 
+
   const handleSwap = async () => {
     if (isApproved) {
       try {
-        if (!tokenBContract || !tokenAContract) throw new Error("Contracts are not initialized");
-
+        if (!swapContract) throw new Error("Swap contract is not initialized");
+        if (!tokenBContract || !tokenAContract) throw new Error("Token contracts are not initialized");
+  
         const amountToSwap = ethers.parseUnits(swapAmount, 18); // Convert the user input amount to 18 decimals
-        
-        // Optional: Check if the amount to swap is valid (greater than zero)
-        // if (amountToSwap.isZero()) {
-        //   console.error("Swap amount must be greater than zero");
-        //   return;
-        // }
-
-        // Call the swap function (replace with your actual swap function)
+  
         let transaction;
         if (isTokenBToTokenA) {
-          // Assume you have a function called swapBToA in your smart contract
-          transaction = await swapContract.swapToken1ForToken2(amountToSwap); // Adjust this line to match your contract function
+          // Assume you're swapping Token B for Token A
+          transaction = await swapContract.swap(amountToSwap); // Adjust this if you need specific logic for the swap
         } else {
-          // Assume you have a function called swapAToB in your smart contract
-          transaction = await swapContract.swapToken2ForToken1(amountToSwap); // Adjust this line to match your contract function
+          // Assume you're swapping Token A for Token B
+          transaction = await swapContract.swap(amountToSwap); // Adjust this as needed
         }
-
+  
         await transaction.wait(); // Wait for the transaction to be confirmed
         console.log("Swap successful");
         setSwapAmount(''); // Clear the input field after swap
@@ -61,6 +57,8 @@ const TokenSwap: React.FC = () => {
       }
     }
   };
+  
+  
 
   return (
     <div className="max-w-md mx-auto p-4  bg-[#198785]  rounded-lg shadow-lg">
