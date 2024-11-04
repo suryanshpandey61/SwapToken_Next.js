@@ -12,7 +12,8 @@ const TokenSwap: React.FC = () => {
 
   const handleApprove = async () => {
     try {
-      if (!tokenBContract) throw new Error("MTK contract is not initialized");
+      const contractToApprove = isTokenBToTokenA ? tokenBContract : tokenAContract;
+      if (!contractToApprove) throw new Error("Token contract is not initialized");
 
       const spenderAddress = isTokenBToTokenA ? CONTRACT_ADDRESSES.TokenA : CONTRACT_ADDRESSES.TokenB; // Set the spender address based on the swap direction
 
@@ -20,7 +21,7 @@ const TokenSwap: React.FC = () => {
       const amountToApprove = ethers.parseUnits(swapAmount, 18); // Convert the user input amount to 18 decimals
 
       // Call the approve function with spender address and amount
-      const transaction = await tokenBContract.approve(spenderAddress, amountToApprove);
+      const transaction = await contractToApprove.approve(spenderAddress, amountToApprove);
       await transaction.wait(); // Wait for the transaction to be confirmed
       setIsApproved(true); // Update the approval state
       console.log("Approval successful");
@@ -35,17 +36,17 @@ const TokenSwap: React.FC = () => {
     if (isApproved) {
       try {
         if (!swapContract) throw new Error("Swap contract is not initialized");
-        if (!tokenBContract || !tokenAContract) throw new Error("Token contracts are not initialized");
+      
   
         const amountToSwap = ethers.parseUnits(swapAmount, 18); // Convert the user input amount to 18 decimals
   
         let transaction;
         if (isTokenBToTokenA) {
           // Assume you're swapping Token B for Token A
-          transaction = await swapContract.swap(amountToSwap); // Adjust this if you need specific logic for the swap
+          transaction = await swapContract.swapBtoA(amountToSwap); // Adjust this if you need specific logic for the swap
         } else {
           // Assume you're swapping Token A for Token B
-          transaction = await swapContract.swap(amountToSwap); // Adjust this as needed
+          transaction = await swapContract.swapAtoB(amountToSwap); // Adjust this as needed
         }
   
         await transaction.wait(); // Wait for the transaction to be confirmed
