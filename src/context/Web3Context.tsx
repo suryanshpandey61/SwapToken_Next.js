@@ -6,6 +6,7 @@ import TokenA_ABI from '../contracts/abis/TokenA.json';
 import SWAP_ABI from '../contracts/abis/SWAP.json';
 
 interface Web3ContextType {
+  account: string | null; 
   provider: ethers.BrowserProvider | null;
   tokenBContract: ethers.Contract | null;
   tokenAContract: ethers.Contract | null;
@@ -21,6 +22,7 @@ interface Web3ProviderProps {
 }
 
 export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
+  const [account,setAccount] = useState<string | null>(null);
   const [provider, setProvider] = useState<ethers.BrowserProvider | null>(null);
   const [tokenBContract, setTokenBContract] = useState<ethers.Contract | null>(null);
   const [tokenAContract, setTokenAContract] = useState<ethers.Contract | null>(null);
@@ -36,6 +38,7 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
           setProvider(web3Provider);
           
           const signer = await web3Provider.getSigner();
+          const userAccount = await signer.getAddress();
 
           const tokenB = new ethers.Contract( CONTRACT_ADDRESSES.TokenB,TokenB_ABI,signer);
           const tokenA = new ethers.Contract( CONTRACT_ADDRESSES.TokenA,TokenA_ABI,signer);
@@ -44,6 +47,8 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
           setTokenBContract(tokenB);
           setTokenAContract(tokenA);
           setSwapContract(swap);
+
+          setAccount(userAccount);
         } else {
           throw new Error('Ethereum provider not found. Please install MetaMask.');
         }
@@ -63,11 +68,12 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
       setTokenBContract(null);
       setTokenAContract(null);
       setSwapContract(null);
+      setAccount(null);
     };
   }, []);
 
   return (
-    <Web3Context.Provider value={{ provider, tokenBContract, tokenAContract, swapContract, loading, error }}>
+    <Web3Context.Provider value={{ provider, tokenBContract, tokenAContract, swapContract, loading, error,account }}>
       {children}
     </Web3Context.Provider>
   );
