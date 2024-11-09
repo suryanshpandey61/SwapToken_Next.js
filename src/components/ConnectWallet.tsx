@@ -95,10 +95,14 @@ const ConnectWallet: React.FC<ConnectWalletProps> = ({ setAddress }) => {
     }, [setAddress]);
 
     return (
-        <div className="flex flex-col md:flex-row text-pink-400 w-full max-w-[1200px] justify-between mx-auto p-4">
-            <h2 className="text-xl md:text-2xl font-bold mt-[-50px]">ETH Balance: {balance} ETH</h2>
+        <div className="flex flex-col md:flex-row  w-full max-w-[1200px] justify-between mx-auto p-4">
+            <div className='relative bg-black pt-[45px] '>
+               <h2 className=" bg-slate-700 px-3 pt-2 text-white text-xl md:text-2xl font-bold mt-[-50px]">ETH Balance: {balance} ETH</h2>
+            </div>
+            
 
-            {loading ? (
+           <div>
+           {loading ? (
                 <p className="text-white loader mt-[-50px]"></p>
             ) : (
                 !isConnected ? (
@@ -117,6 +121,7 @@ const ConnectWallet: React.FC<ConnectWalletProps> = ({ setAddress }) => {
                     </button>
                 )
             )}
+           </div>
         </div>
     );
 };

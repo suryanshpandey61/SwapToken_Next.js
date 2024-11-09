@@ -84,21 +84,24 @@ const TokenSwap: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4  bg-[#198785]  rounded-lg shadow-lg">
+    <div className="max-w-md mx-auto p-4  bg-[#2b2203]  rounded-lg shadow-lg">
       <h2 className="text-center text-4xl font-serif text-white mb-4">Token Swap</h2>
       <div className="flex flex-col gap-y-5 justify-between items-center mb-4">
-        <span className='text-xl bg-slate-500 relative font-semibold rounded-md py-3 px-[150px]'>{isTokenBToTokenA ? 'TokenB' : 'TokenA'}</span>
-        <button onClick={() => setIsTokenBToTokenA(!isTokenBToTokenA)} className="px-2 py-1 bg-green-500 mt-[48px] z-10 absolute rounded-2xl">
+        <div className=' bg-[#5f4b0a] px-[50px] border border-b-2 rounded-lg shadow-xl '>
+           <span className='text-xl flex mx-auto flex-col relative font-semibold rounded-md '>{isTokenBToTokenA ? 'TokenB' : 'TokenA'}
+           <p className="text-white left-0 text-[16px] font-semibold font-serif">{isTokenBToTokenA ? `Balance:${balanceB}` : `Balance:${balanceA}`} </p>
+        </span>
+        </div>
+        <button onClick={() => setIsTokenBToTokenA(!isTokenBToTokenA)} className="px-2 py-1 bg-[#ba9008] mt-[55px] z-10 absolute rounded-2xl">
           ⇅
         </button>
-        <span className='text-xl bg-slate-500 relative font-semibold rounded-md py-3 px-[150px]'>{isTokenBToTokenA ? 'TokenA' : 'TokenB'}</span>
+        <div className=' bg-slate-500 px-[50px] rounded-md mt-2'>
+           <span className='text-xl bg-slate-500 relative font-semibold rounded-md '>{isTokenBToTokenA ? 'TokenA' : 'TokenB'}</span>
+           <p className="text-white left-0 text-[16px] font-semibold font-serif">{isTokenBToTokenA ? `Balance:${balanceA}` : `Balance:${balanceB}`} </p>
+        </div>
       </div>
 
-      {/* Display Balances */}
-      <div className="text-center mb-4">
-        <p className="text-white font-semibold">Balance of TokenA: {balanceA} </p>
-        <p className="text-white font-semibold">Balance of TokenB: {balanceB} </p>
-      </div>
+     
 
       <input
         type="number"
