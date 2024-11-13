@@ -14,6 +14,11 @@ const TokenSwap: React.FC = () => {
   const [balanceA, setBalanceA] = useState<string>('0');
   const [balanceB, setBalanceB] = useState<string>('0');
 
+  // for allowance 
+  
+
+
+
   // Function to fetch balances of Token A and Token B
   const fetchBalances = async () => {
     if (!account) return;
